@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 기본생성자 사용 new MemberDTO() 오버라이드 오류  -->
+<bean id="dto" class= "member.MemberDTO">
+	<property name="memberid" value="spring"/>
+	<property name="pw" value="1111"/>
+	<property name="name" value="김길동"/>
+	<property name="phone" value="01021213434"/>
+	<property name="email" value="kim@kim.com"/>
+	<property name="regtime" value="2023-05-19"/>
+</bean>
+<!-- <bean id="dto2" class= "member.MemberDTO">
+	<property name="memberid" value="spring2"/>
+	<property name="pw" value="2222"/>
+	<property name="name" value="박길동"/>
+	<property name="phone" value="01056563434"/>
+	<property name="email" value="park@kim.com"/>
+	<property name="regtime" value="2023-05-19"/>
+</bean>
+
+<bean id="dto3" class= "member.MemberDTO">
+	<constructor-arg name="memberid" value="spring3"/>
+	<constructor-arg name="pw" value="3333"/>
+</bean> -->
+
+<bean id="dao" class="member.MemberDAO">
+	<property name="dto" ref="dto"/>
+</bean>
+
+</beans>

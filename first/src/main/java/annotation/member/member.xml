@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+<!-- @component, @service, @Repository, @Autowired 어노테이션 설정 클래스 찾아라 -->
+<context:component-scan base-package="annotation.member"/>
+<bean id="memberDTO" class= "annotation.member.MemberDTO"> <!-- @Component 설정 -->
+	<property name="memberid" value="spring"/>
+	<property name="pw" value="1111"/>
+	<property name="name" value="김길동"/>
+	<property name="phone" value="01021213434"/>
+	<property name="email" value="kim@kim.com"/>
+	<property name="regtime" value="2023-05-19"/>
+</bean>
+
+<bean id="dto2" class= "annotation.member.MemberDTO"> <!-- @Component 설정 -->
+	<property name="memberid" value="spring2"/>
+	<property name="pw" value="2222"/>
+	<property name="name" value="김길동"/>
+	<property name="phone" value="01021213434"/>
+	<property name="email" value="kim@kim.com"/>
+	<property name="regtime" value="2023-05-19"/>
+</bean>
+
+
+</beans>
+
