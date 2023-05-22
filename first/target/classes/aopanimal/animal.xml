@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+<!-- <bean id="dog" class="aopanimal.Dog"/>
+<bean id="cat" class="aopanimal.Cat"/>
+<bean id="rabbit" class="aopanimal.Rabbit"/>
+<bean id="advice" class="aopanimal.AnimalAdvice"/>
+
+<aop:config>
+	<aop:pointcut expression="execution(* aopanimal..*.lunch(..))" id="pc"/>
+	<aop:aspect id="advice" ref="advice">
+		<aop:around method="reply" pointcut-ref="pc"/>
+	</aop:aspect>
+</aop:config> -->
+<context:component-scan base-package="aopanimal"/>
+<aop:aspectj-autoproxy/>
+
+</beans>

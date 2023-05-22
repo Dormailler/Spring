@@ -11,6 +11,8 @@
 		<config>src/main/java/member/member.xml</config>
 		<config>src/main/java/annotation/member/member.xml</config>
 		<config>src/main/java/command/command.xml</config>
+		<config>src/main/java/aop1/aop.xml</config>
+		<config>src/main/java/aopanimal/animal.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>

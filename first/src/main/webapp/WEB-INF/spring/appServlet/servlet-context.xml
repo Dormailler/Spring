@@ -22,6 +22,22 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="edu.multi.first" />
+	<!-- 추가 -->
+	<beans:bean id="hellocontroller" class="springmvc.HelloController"/>
+	<beans:bean id="listcontroller" class="springmvc.ListController"/>
+	<beans:bean id="loginformcontroller" class="springmvc.LoginFormController"/>
+	<beans:bean id="loginresultcontroller" class="springmvc.LoginResultController"/>
+	
+	<beans:bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<beans:property name="mappings" > <!-- urlMapping.setMappings() -->
+			<beans:props>
+				<beans:prop key="/hello">hellocontroller</beans:prop>
+				<beans:prop key="/list">listcontroller</beans:prop>
+				<beans:prop key="/loginform">loginformcontroller</beans:prop>
+				<beans:prop key="/loginresult">loginresultcontroller</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
 	
 	
 	
