@@ -7,11 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>로그인폼</h1>
-<form action="login" method="post">
+<h1>회원가입폼</h1>
+<form action="memberservice" method="post">
 아이디<input type=text name="memberid"><br>
 암호<input type=password name="pw"><br>
-<button type="submit">로그인</button>
+이름<input type=text name="name"><br>
+폰<input type=text name="phone"><br>
+이메일<input type=email name="email"><br>
+가입일<input type="datetime-local" name="regtime"><br>
+<input type=submit value="회원가입">
 </form>
 </body>
 </html>

@@ -1,4 +1,3 @@
-<%@page import="annotation.springmvc.HelloDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<% HelloDTO dto = (HelloDTO)request.getAttribute("model"); %>
-<h1><%=dto.getMessage() %></h1>
+아이디 ${memberid }<br>
+나이 ${age }<br>
+가능 영화목록 ${resultmovie }<br>
 </body>
 </html>

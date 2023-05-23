@@ -1,4 +1,3 @@
-<%@page import="annotation.springmvc.HelloDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<% HelloDTO dto = (HelloDTO)request.getAttribute("model"); %>
-<h1><%=dto.getMessage() %></h1>
-</body>
+<h1>로그인 아이디는 ${dto.memberid } 이고 암호는 ${dto.pw } 입니다.</h1>
+</body> 
 </html>
