@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="a" > 
+<!-- 자바 클래스 메소드가 호출 메소드명(memberList) = ID명 -->
+ <select id="memberList" resultType="memberdto">
+ select * from c_member
+ </select>
+ 
+ <select id="oneMember" resultType="memberdto" parameterType="String">
+ select * from c_member where memberid = #{memberid}
+ </select>
+ 
+ <select id="memberCount" resultType="int">
+ select count(*) from c_member
+ </select>
+ 
+<insert id="insertMember" >
+insert into c_member values('mybatis2','홍길동',1111,'010-5642-0001','mybatis@a.com',now());
+</insert>
+
+<insert id="insertMemberDTO" parameterType="memberdto">
+insert into c_member values(#{memberid},#{name},#{pw},#{phone},#{email},now());
+</insert>
+
+<update id="updateMember" parameterType="memberdto">
+ update c_member set pw=#{pw}, email=#{email} where memberid=#{memberid}
+</update>
+
+<delete id="deleteMember" parameterType="String">
+ delete from c_member where memberid=#{memberid}
+</delete>
+<!--  db sql 실행 일관성 유지 - 트랜잭션기법
+service-1 메소드 기능  -서비스-메뉴표현 
+dao-1 메소드 sql 1개 단위 표현
+
+1개 서비스 미완료 = insert(ok-최소) + delete(ok-취소) + update(실패) = rollback 트랜잭션처리
+다 ok 돼야 commit 트랜잭션 처리
+-->
+
+<!-- parameterType ="String|int|xxdto" 
+int[] limit = {3,10}
+-->
+
+<!-- <select id="memberPagingList" resultType="memberdto" parameterType="int">
+select * from c_member order by regtime desc limit
+	<foreach collection="array" item="num" separator=",">
+	 #{num}
+	</foreach>
+</select> -->
+
+<select id="memberPagingList" resultType="memberdto" parameterType="java.util.ArrayList">
+select * from c_member order by regtime desc limit
+	<foreach collection="list" item="num" separator=",">
+	 #{num}
+	</foreach>
+</select>
+
+<!-- 
+int[] a = {1,2,3,4,5}
+select * from c_member where id in (1,2,3,4,5)
+select * from c_member where id in 
+	<foreach collection="array" item="num" separator="," open="(" close=")">
+	 #{num}
+	</foreach>
+ -->
+ <!--"name", "%길동%" 
+ Hashmap map = new Hashmap();
+ map.put("colname","name");
+ map.put("colvalue","%길동%");  !!! $ 따옴표X !!!
+ -->
+ <select id="searchList" parameterType="hashmap" resultType="memberDTO">
+ select * from c_member where ${colname} like #{colvalue}
+ </select>
+<!--  memberdto 파라미터 전달 - 내부 name 있으면 비교 / 없으면 무시 -->
+ <!-- select * from c_member where name like ? or memberid like ? or phone like ? or regtime like ? -->
+ 
+ <select id="searchList2" parameterType="memberdto" resultType="memberdto">
+ select * from c_member where 
+	<choose>
+		 <when test="name != null">
+		 	name like concat('%',#{name},'%')
+		 </when>
+		 <when test="email != null">
+		 	email like concat('%',#{email},'%')
+		 </when>
+		 <when test="phone != null">
+		 	phone like concat('%',#{phone},'%')
+		 </when>
+		 <when test="memberid != null">
+		 	memberid like concat('%',#{memberid},'%')
+		 </when>
+ 	</choose>
+ 	order by regtime desc
+ </select>
+ 
+<sql id="membersql">
+select * from c_member
+</sql>
+ 
+<sql id="wheresql">
+where memberid=#{memberid}
+</sql>
+
+<select id="totalsql" resultType="memberdto" parameterType="String">
+<include refid="membersql" />
+<include refid="wheresql"/>
+</select>
+
+ 
+ 
+</mapper>
