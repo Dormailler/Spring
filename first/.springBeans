@@ -13,10 +13,9 @@
 		<config>src/main/java/command/command.xml</config>
 		<config>src/main/java/aop1/aop.xml</config>
 		<config>src/main/java/aopanimal/animal.xml</config>
+		<config>src/main/java/spring/mybatis/spring-mybatis.xml</config>
 	</configs>
 	<autoconfigs>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

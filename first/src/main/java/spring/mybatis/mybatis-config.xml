@@ -6,11 +6,11 @@
      <setting name="logImpl" value="LOG4J"/> 
   </settings>
   <typeAliases>
-  	<typeAlias type="mybatis.MemberDTO" alias="memberdto"/>
+  	<typeAlias type="spring.mybatis.MemberDTO" alias="memberdto"/>
   	<typeAlias type="java.util.HashMap" alias="hashmap"/>
   </typeAliases>   
   <!-- db 연결 정보 설정 = mybatis 자동 연결 -->
-  <environments default="mydb">
+  <!-- <environments default="mydb">
   	<environment id="mydb">
   		<transactionManager type="JDBC"/>
   		<dataSource type="POOLED">
@@ -20,9 +20,9 @@
   			<property name="password" value="emp"/>
   		</dataSource>
   	</environment>
-  </environments>
+  </environments> -->
   <!-- sql 정의 xml 설정 --> 
-  <mappers>
+  <!-- <mappers>
  <mapper resource="mybatis/sql-mapping.xml"/>
- </mappers>
+ </mappers> -->
   </configuration>
