@@ -6,14 +6,15 @@ import java.util.List;
 //servlet 4.0 미만 javax.servlet.http.httpServlet
 //servlet 5.0 jakarta.servlet.....
 import org.apache.ibatis.session.SqlSession; // mybatis(새로운이름) - ibatis(이전이름)
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class MemberDAO {
-
+	
+	@Autowired
 	SqlSession session;
 	
-	public void setSession(SqlSession session) {
-		this.session = session;
-	}
 	public List<MemberDTO> memberList(){
 		List<MemberDTO> list = session.selectList("memberList");
 		return list;

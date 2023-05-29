@@ -15,4 +15,5 @@ public interface MemberService {
 	public List<MemberDTO> searchList(HashMap<String, String> map);
 	public List<MemberDTO> searchList2(MemberDTO dto);
 	public MemberDTO totalsql(String id);
+	public int memberCount();
 }

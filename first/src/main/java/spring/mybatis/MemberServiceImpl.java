@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Memberserviceimpl implements MemberService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MemberServiceImpl implements MemberService {
+	
+	@Autowired
 	MemberDAO dao;
-	public void setDao(MemberDAO dao) {
-		this.dao = dao;
-	}
 	
 	@Override
 	public List<MemberDTO> memberList(){
@@ -74,5 +77,11 @@ public class Memberserviceimpl implements MemberService {
 	public MemberDTO totalsql(String id) {
 		return dao.totalsql(id);
 	}
+
+	@Override
+	public int memberCount() {
+		return dao.memberCount();
+	}
+	
 	
 }

@@ -13,7 +13,7 @@
 	<property name="password" value="emp"/> 
 </bean>
 <!-- mybatis-config.xml , sql-mapping 위치 정보 -->
-<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	<property name="dataSource" ref="dataSource"/>
 	<property name="configLocation" value="classpath:spring/mybatis/mybatis-config.xml"/>
 	<property name="mapperLocations" value="classpath:spring/mybatis/*-mapping.xml"/>
@@ -22,5 +22,5 @@
 <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 	<constructor-arg ref="sqlSessionFactory"/>
 </bean>
-<context:component-scan base-package="spring.mybatis"/>
+<!-- <context:component-scan base-package="spring.mybatis"/> main에서 실행하기위함-->
 </beans>

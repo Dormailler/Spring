@@ -4,12 +4,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
-	<welcome-file-list>
-		<welcome-file>/WEB-INF/views/home.jsp</welcome-file>
-	</welcome-file-list>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+		/WEB-INF/spring/root-context.xml
+		classpath:board/spring/mybatis/spring-mybatis.xml
+		</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -30,9 +30,9 @@
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/</url-pattern>  
 	</servlet-mapping>
-<!-- 	
+
 <filter>
 	<filter-name>f</filter-name>
 	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -44,7 +44,18 @@
 
 <filter-mapping>
 	<filter-name>f</filter-name>
-	<uri-pattern>/*</uri-pattern> 
-</filter-mapping> -->
-
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+<!--  모든 요청 utf-8 처리 -->
 </web-app>
+
+
+
+
+
+
+
+
+
+
+

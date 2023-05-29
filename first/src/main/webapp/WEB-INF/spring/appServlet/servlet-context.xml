@@ -12,18 +12,29 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- Handles HTTP GET requests for /resources/** 
+	by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-
+	<!-- src/main/webapp/resource/a.html 저장 
+		http://localhost:8071/first/resources/a.html-->
+	<resources mapping="/upload/**" location="file:///c:/kdt/upload/" />
+	<!-- http://localhost:8071/first/upload/xxxxx -->
+	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+    <!-- Annotation 사용 -->
+	<!-- <context:component-scan base-package="annotation.springmvc" />  -->
+	<!-- <context:component-scan base-package="spring.mybatis" />
+	<context:component-scan base-package="upload" /> -->
+	<!-- <context:component-scan base-package="ajax" /> -->
+	<context:component-scan base-package="board.spring.mybatis" />
 	
-	<context:component-scan base-package="annotation.springmvc" /> 
-	
-	<!-- 추가 -->
+	<!-- request multipart 타입 해석 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></beans:bean>
+	<!-- 추가 xml방식 선언 -->
 	<!-- <beans:bean id="hellocontroller" class="springmvc.HelloController"/>
 	<beans:bean id="listcontroller" class="springmvc.ListController"/>
 	<beans:bean id="loginform" class="springmvc.LoginFormController"/>
