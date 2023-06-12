@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"cfr","objectdetection","pose","stt_csr","tts_voice","mymapping"})
+@ComponentScan(basePackages = {"cfr","objectdetection","pose","stt_csr","tts_voice","mymapping","ocr","chatbot"})
 @ComponentScan(basePackages = "objectdetection") // basePackageClasses = objectdetectionController.class
 @ComponentScan
 public class NaveraiBootApplication {

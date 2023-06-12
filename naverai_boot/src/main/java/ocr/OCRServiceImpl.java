@@ -18,14 +18,15 @@ import org.springframework.stereotype.Service;
 import com.example.ai.MyNaverInform;
 import com.example.ai.NaverService;
 
-public class OCRGeneralAPIDemo implements NaverService{
+@Service("ocrservice")
+public class OCRServiceImpl implements NaverService{
 
-	public String test(String ocrImage) {
+	public String test(String ocrimage) {
 		String apiURL = MyNaverInform.apiURL;
 		String secretKey = MyNaverInform.ocrSecret;
-		String imageFile = MyNaverInform.path + ocrImage;
+		String imageFile = MyNaverInform.path + ocrimage;
 		StringBuffer response = null;
-		
+
 		try {
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -70,7 +71,7 @@ public class OCRGeneralAPIDemo implements NaverService{
 				response.append(inputLine);
 			}
 			br.close();
-			
+
 			System.out.println(response);
 		} catch (Exception e) {
 			System.out.println(e);
