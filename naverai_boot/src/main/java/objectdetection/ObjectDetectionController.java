@@ -14,37 +14,35 @@ import com.example.ai.NaverService;
 
 @Controller
 public class ObjectDetectionController {
-	
 	@Autowired
-	@Qualifier("objecttdetectionservice")
+	@Qualifier("objectdetectionservice")
 	NaverService service;
 	
 	@RequestMapping("/objectinput")
 	public ModelAndView objectinput() {
-		File f = new File(MyNaverInform.path); // 파일과 디렉토리 정보 제공
 		
+		File f = new File(MyNaverInform.path);//파일과 디렉토리 정보 제공
 		String[] filelist = f.list();
 		
-		//file_ext 배열 존재하는 확장자만 모델 포함
-		String file_ext[] = {"jpg","gif","png","jfif"};
-		ArrayList<String> filearray = new ArrayList();
-		for(String file:filelist) {
-			String myext = file.substring(file.lastIndexOf(".") + 1); //jpg
-			for(String ext : file_ext) {
-				if(myext.equals(ext)) {
-					filearray.add(file);
+		String file_ext[] = {"jpg", "gif", "png", "jfif"};
+		//file_ext 배열 존재하는 확장자만 모델 포함. 
+		
+		ArrayList<String> newfilelist = new ArrayList();
+		for(String onefile : filelist) {
+			//bangtan.1.2.jpg
+			String myext = onefile.substring(onefile.lastIndexOf(".") + 1);//jpg
+			for(String imgext : file_ext) {
+				if(myext.equals(imgext)) {
+					newfilelist.add(onefile);
 					break;
 				}
 			}
 		}
-		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("filearray", filearray);
+		mv.addObject("filelist", newfilelist);
 		mv.setViewName("objectinput");
 		return mv;
 	}
-	
-	
 	
 	@RequestMapping("/objectresult")
 	public ModelAndView objectresult(String image) {
@@ -54,4 +52,6 @@ public class ObjectDetectionController {
 		mv.setViewName("objectresult");
 		return mv;
 	}
+	
+	
 }

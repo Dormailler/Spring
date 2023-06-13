@@ -13,18 +13,16 @@ import java.util.UUID;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.stereotype.Service;
 
 import com.example.ai.MyNaverInform;
-import com.example.ai.NaverService;
-@Service("ocrservice")
-public class OCRServiceImpl implements NaverService{
 
-	public String test(String ocrimages) {
-		StringBuffer response = null;
+public class OCRGeneralDEMO {
+
+	public static void main(String[] args) {
+		//application 서비스 추가(cleintid, secret key)
 		String apiURL = MyNaverInform.apiURL;
 		String secretKey = MyNaverInform.ocrSecret;
-		String imageFile = MyNaverInform.path + ocrimages;
+		String imageFile = MyNaverInform.path + "font1.png";
 
 		try {
 			URL url = new URL(apiURL);
@@ -65,17 +63,16 @@ public class OCRServiceImpl implements NaverService{
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
 			String inputLine;
-			response = new StringBuffer();
+			StringBuffer response = new StringBuffer();
 			while ((inputLine = br.readLine()) != null) {
 				response.append(inputLine);
 			}
 			br.close();
 
-			System.out.println(response);//콘솔 출력  json
+			System.out.println(response);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return response.toString();
 	}
 
 	private static void writeMultiPart(OutputStream out, String jsonMessage, File file, String boundary) throws

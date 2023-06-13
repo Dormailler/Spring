@@ -21,15 +21,18 @@ public class FaceServiceImpl implements NaverService {
 
 	@Override
 	public String test(String image) {
-		StringBuffer reqStr = new StringBuffer();
+		StringBuffer response = null;
+		
+        StringBuffer reqStr = new StringBuffer();
         String clientId = MyNaverInform.clientID;//애플리케이션 클라이언트 아이디값";
         String clientSecret = MyNaverInform.secret;//애플리케이션 클라이언트 시크릿값";
-        StringBuffer response = null;
+
         try {
             String paramName = "image"; // 파라미터명은 image로 지정
             String imgFile = MyNaverInform.path + image;
             File uploadFile = new File(imgFile);
             String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/celebrity"; // 유명인 얼굴 인식
+            //https://naveropenapi.apigw.ntruss.com/vision/v1/face
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setUseCaches(false);
@@ -63,7 +66,6 @@ public class FaceServiceImpl implements NaverService {
             writer.close();
             BufferedReader br = null;
             int responseCode = con.getResponseCode();
-           
             if(responseCode==200) { // 정상 호출
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             } else {  // 오류 발생
@@ -77,7 +79,7 @@ public class FaceServiceImpl implements NaverService {
                     response.append(inputLine);
                 }
                 br.close();
-                System.out.println(response.toString());
+                System.out.println(response.toString());//콘솔 출력 결과
             } else {
                 System.out.println("error !!!");
             }
@@ -85,6 +87,6 @@ public class FaceServiceImpl implements NaverService {
             System.out.println(e);
         }
         return response.toString();
-    }
-
+	}
+	
 }

@@ -13,10 +13,6 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<form action="/chatbotresponse" >
-질문 : <input type=text name="request" >
-<input type=submit value="답변" name='event' >
-<input type=submit value="웰컴메시지" name='event' >
-</form>
+
 </body>
 </html>

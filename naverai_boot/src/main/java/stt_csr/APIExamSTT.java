@@ -13,7 +13,7 @@ public class APIExamSTT {
         String clientSecret = MyNaverInform.secret;     // Application Client Secret";
 
         try {
-            String imgFile = MyNaverInform.path + "test.m4a";
+            String imgFile = MyNaverInform.path + "녹음 (4).m4a";
             File voiceFile = new File(imgFile);
 
             String language = "Kor";        // 언어 코드 ( Kor, Jpn, Eng, Chn )

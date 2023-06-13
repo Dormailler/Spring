@@ -6,42 +6,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import com.example.ai.MyNaverInform;
-/*{
-	"info":{
-		"size":{
-			"width":560,
-			"height":769
-			},
-		"faceCount":1
-		},
-	"faces":[
-	         {
-        	 "roi":{
-        		 "x":89,
-        		 "y":192,
-        		 "width":236,
-        		 "height":236
-        		 },
-        	 "landmark":null,
-        	 "gender":{
-        			 "value":"female",
-        			 "confidence":0.99758
-        			 },
-        	 "age":{
-    				 "value":"21~25",
-    				 "confidence":1.0
-    				 },
-        	 "emotion":{
-    					 "value":"neutral",
-    					 "confidence":1.0
-    					 },
-        	 "pose":{
-					 "value":"left_face",
-					 "confidence":0.722253
-					 }
-    			}
-	         ]
-}*/
 
 // 네이버 얼굴인식 API 예제
 public class APIExamFace2 {
@@ -54,7 +18,7 @@ public class APIExamFace2 {
 
         try {
             String paramName = "image"; // 파라미터명은 image로 지정
-            String imgFile = MyNaverInform.path + "kimbab.jpg"; //2mb이하크기(ncp사이트제한)
+            String imgFile = MyNaverInform.path + "song.jpg";//2mb이하크기(ncp사이트제한)
             File uploadFile = new File(imgFile);
             String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/face"; // 얼굴 감지
             URL url = new URL(apiURL);

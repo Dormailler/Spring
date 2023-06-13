@@ -15,8 +15,5 @@ $(document).ready(function(){
 <body>
 ${ttsresult } 파일에 저장했습니다.
 <audio id="mp3" controls src="/naverimages/${ttsresult }" ></audio>
-<script>
-document.getElementById("mp3").play();
-</script>
 </body>
 </html>

@@ -1,13 +1,13 @@
 package tts_voice;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,31 +19,29 @@ import com.example.ai.NaverService;
 
 @Controller
 public class TTSController {
-	
 	@Autowired
 	@Qualifier("ttsservice")
-	NaverService service;
+	NaverService service;//stt  service.메소드(NaverService오버라이딩메소드호출)
 	
-	//ai_images 파일리스트 보여주는 뷰
+	// ai_images 파일리스트 보여주는 뷰
 	@RequestMapping("/ttsinput")
-	public ModelAndView feceinput() {
-		
-		File f = new File(MyNaverInform.path); // 파일과 디렉토리 정보 제공		
+	public ModelAndView ttsinput() {
+		File f = new File(MyNaverInform.path);//파일과 디렉토리 정보 제공
 		String[] filelist = f.list();
 		
-		//file_ext 배열 존재하는 확장자만 모델 포함
 		String file_ext[] = {"txt"};
+		//file_ext 배열 존재하는 확장자만 모델 포함. 
+		
 		ArrayList<String> newfilelist = new ArrayList();
-		for(String file:filelist) {
-			String myext = file.substring(file.lastIndexOf(".") + 1); //jpg
-			for(String ext : file_ext) {
-				if(myext.equals(ext)) {
-					newfilelist.add(file);
+		for(String onefile : filelist) {
+			String myext = onefile.substring(onefile.lastIndexOf(".") + 1);//jpg
+			for(String imgext : file_ext) {
+				if(myext.equals(imgext)) {
+					newfilelist.add(onefile);
 					break;
 				}
 			}
 		}
-		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("filelist", newfilelist);
 		mv.setViewName("ttsinput");
@@ -51,19 +49,30 @@ public class TTSController {
 	}
 	
 	@RequestMapping("/ttsresult")
-	public ModelAndView feceresult(String text,String speaker) throws IOException {
-		//서버클래스요청 
+	public ModelAndView sttresult(String text, String speaker) throws IOException{ 
 		String ttsresult = null;
 		if(speaker == null) {
-			ttsresult = service.test(text);
-		}else {
-			ttsresult = ((TTSServiceImpl)service).test(text,speaker);
+			ttsresult = service.test(text);//기본음색 jinho
+		}
+		else {
+			ttsresult = ((TTSServiceImpl)service).test(text, speaker);
 		}
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("ttsresult", ttsresult);
+		mv.addObject("ttsresult", ttsresult);//mp3파일명
 		mv.setViewName("ttsresult");
 		
 		return mv;
 	}
-
 }
+
+
+
+
+
+
+
+
+
+
+
+

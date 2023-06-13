@@ -1,13 +1,13 @@
 package stt_csr;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,60 +19,76 @@ import com.example.ai.NaverService;
 
 @Controller
 public class STTController {
-	
 	@Autowired
 	@Qualifier("sttservice")
-	NaverService service;
+	NaverService service;//stt  service.메소드(NaverService오버라이딩메소드호출)
 	
-	//ai_images 파일리스트 보여주는 뷰
+	// ai_images 파일리스트 보여주는 뷰
 	@RequestMapping("/sttinput")
-	public ModelAndView feceinput() {
+	public ModelAndView sttinput() {
 		
-		File f = new File(MyNaverInform.path); // 파일과 디렉토리 정보 제공		
+		File f = new File(MyNaverInform.path);//파일과 디렉토리 정보 제공
 		String[] filelist = f.list();
 		
-		//file_ext 배열 존재하는 확장자만 모델 포함
-		String file_ext[] = {"mp3","m4a","wav"};
-		ArrayList<String> filearray = new ArrayList();
-		for(String file:filelist) {
-			String myext = file.substring(file.lastIndexOf(".") + 1); //jpg
-			for(String ext : file_ext) {
-				if(myext.equals(ext)) {
-					filearray.add(file);
+		String file_ext[] = {"mp3", "m4a", "wav"};
+		//file_ext 배열 존재하는 확장자만 모델 포함. 
+		
+		ArrayList<String> newfilelist = new ArrayList();
+		for(String onefile : filelist) {
+			String myext = onefile.substring(onefile.lastIndexOf(".") + 1);//jpg
+			for(String imgext : file_ext) {
+				if(myext.equals(imgext)) {
+					newfilelist.add(onefile);
 					break;
 				}
 			}
 		}
-		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("filearray", filearray);
+		mv.addObject("filelist", newfilelist);
 		mv.setViewName("sttinput");
 		return mv;
 	}
 	
 	@RequestMapping("/sttresult")
-	public ModelAndView feceresult(String file,String lang) throws IOException {
-		//서버클래스요청 
+	public ModelAndView sttresult(String image, String lang) throws IOException{ //sttresult?image=a.mp3&lang=Kor
 		String sttresult = null;
 		if(lang == null) {
-			sttresult = service.test(file);
-		}else {
-			sttresult = ((STTServiceImpl)service).test(file,lang);
+			sttresult = service.test(image);//기본언어 Kor
+		}
+		else {
+			sttresult = ((STTServiceImpl)service).test(image, lang);
 		}
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("sttresult", sttresult);
+		mv.addObject("sttresult", sttresult); // 텍스트 뷰 출력 {text : 텍스트변환결과 }
 		mv.setViewName("sttresult");
 		
-		//추가 MyNaverInfor.path 경로 mp3파일이름_2023060911022.txt파일로저장
-		LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        String formattedDateTime = currentDateTime.format(formatter);
-		FileWriter fileWriter = new FileWriter(MyNaverInform.path + file +"_"+ formattedDateTime +".txt");
-		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-		bufferedWriter.write(sttresult);
-        bufferedWriter.close();
+		//추가 MyNaverInform.path경로 mp3파일이름_20230609112022.txt 파일로 저장
+		//구현
+		//FileWriter 저장
+		Date now = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String now_string = sdf.format(now);
+		String filename = image.substring(0, image.lastIndexOf(".")) + "_" + now_string + ".txt";
 		
+		FileWriter fw = new FileWriter( MyNaverInform.path + filename, false);
+		
+		JSONObject jsontext = new JSONObject(sttresult);
+		String text = (String)jsontext.get("text");
+		
+		fw.write(text);
+		fw.close();
 		return mv;
 	}
-
 }
+
+
+
+
+
+
+
+
+
+
+
+

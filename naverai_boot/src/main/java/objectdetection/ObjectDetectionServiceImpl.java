@@ -1,24 +1,33 @@
 package objectdetection;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.springframework.stereotype.Service;
+
 import com.example.ai.MyNaverInform;
+import com.example.ai.NaverService;
 
-// Object Detection API 예제
-public class APIExamObject {
+@Service("objectdetectionservice")
+public class ObjectDetectionServiceImpl implements NaverService{
 
-    public static void main(String[] args) {
-
+    public String test(String image) {
+    	StringBuffer response = null;
         StringBuffer reqStr = new StringBuffer();
         String clientId = MyNaverInform.clientID;//애플리케이션 클라이언트 아이디값";
         String clientSecret = MyNaverInform.secret;//애플리케이션 클라이언트 시크릿값";
 
         try {
             String paramName = "image"; // 파라미터명은 image로 지정
-            String imgFile = MyNaverInform.path + "land2.jpg";//2mb 이하
+            String imgFile = MyNaverInform.path + image;//2mb 이하
             File uploadFile = new File(imgFile);
             String apiURL = "https://naveropenapi.apigw.ntruss.com/vision-obj/v1/detect"; // 객체 인식
             URL url = new URL(apiURL);
@@ -62,7 +71,7 @@ public class APIExamObject {
             }
             String inputLine;
             if(br != null) {
-                StringBuffer response = new StringBuffer();
+                response = new StringBuffer();
                 while ((inputLine = br.readLine()) != null) {
                     response.append(inputLine);
                 }
@@ -74,5 +83,6 @@ public class APIExamObject {
         } catch (Exception e) {
             System.out.println(e);
         }
+        return response.toString();
     }
 }

@@ -1,4 +1,4 @@
-package stt_csr;
+package chatbot;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.ai.MyNaverInform;
 import com.example.ai.NaverService;
-@Service("sttservice")
-public class STTServiceImpl implements NaverService {
+@Service("chatbotsttservice")
+public class ChatbotSTTServiceImpl implements NaverService {
 	public String test(String mp3file) {
 		return test(mp3file, "Kor");
 	}

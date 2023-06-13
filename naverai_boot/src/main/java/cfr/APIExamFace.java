@@ -6,33 +6,42 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import com.example.ai.MyNaverInform;
+/* json  
+{
+"info":{ 
+	"size":{"width":199,"height":253}, 
+	"faceCount":1
+	},
+"faces":[
+{
+"celebrity":{"value":"수빈","confidence":0.417449}
+}
+]
+}
 
+ * */
+/*
+ * {"info":{"size":{"width":640,"height":407},"faceCount":7},
+ *  
+ * 
+ * "faces":[
+ * {"celebrity":{"value":"유겸","confidence":0.01}},
+ * {"celebrity":{"value":"엄현경","confidence":0.090902}},
+ * {"celebrity":{"value":"유진","confidence":0.0629874}},
+ * {"celebrity":{"value":"현승민","confidence":0.134923}},
+ * {"celebrity":{"value":"정은지","confidence":0.376566}},
+ * {"celebrity":{"value":"김태형","confidence":0.01}},
+ * {"celebrity":{"value":"이일민","confidence":0.0682075}}
+ * ]
+ * }
+*/
+
+// info.faceCount -  연예인 수
+// faces[0].celebrity.value - 첫번째 닮은 연예인이름 
+// faces[0].celebrity.confidence - 첫번째 닮은 연예인 정도 ( 0-1 )
 // 네이버 얼굴인식 API 예제
 public class APIExamFace {
-/*
- json 
- {
- "info":{
- 	"size":{
- 		"width":282,
- 		"height":179
- 		},
- 	"faceCount":1
- },
- "faces":[
- {
- 	"celebrity":{
- 	"value":"아이유",
- 	"confidence":1.0
- 	}
- }
- ]
- }
- 
- info.faceCount - 연예인 수
- faces[0].celebrity.value 닮은 연예인이름
- faces[0].celebrity.confidence 닮은 정도 (0~1)
- */
+
     public static void main(String[] args) {
 
         StringBuffer reqStr = new StringBuffer();
@@ -90,7 +99,7 @@ public class APIExamFace {
                     response.append(inputLine);
                 }
                 br.close();
-                System.out.println(response.toString());
+                System.out.println(response.toString());//콘솔 출력 결과
             } else {
                 System.out.println("error !!!");
             }

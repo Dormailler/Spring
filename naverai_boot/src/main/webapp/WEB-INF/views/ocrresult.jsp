@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -9,48 +8,48 @@
 <script src="js/jquery-3.6.4.min.js"></script>
 <script>
 $(document).ready(function(){
-	let json = JSON.parse('${ocrresult }'); // String --> JSON 객체 변환 json.변수명
-	$("#output").html(JSON.stringify(json)); // JSON --> String 변환 {'변수명':'값..'}
+	//구현
+	var json = JSON.parse('${ocrresult }');//  string-->JSON 객체 변환 (JSON.parse). json.변수명
+ 	$("#output").html(JSON.stringify(json) ); //  json --> string  변환 (JSON.stringify) {'변수명':"값".....}
 
-	let mycanvas = document.getElementById("ocrcanvas");
+ 	let mycanvas = document.getElementById("ocrcanvas");//자바스크립트객체
 	let mycontext = mycanvas.getContext("2d");
 	let myimage = new Image();
 	myimage.src = "/naverimages/${param.image}";
 	
 	myimage.onload = function(){
 		if(myimage.width > mycanvas.width){
-			mycanvas.width = myimage.width;
+			mycanvas.width = myimage.width ;
 		}
-		mycontext.drawImage(myimage,0,0,myimage.width,myimage.height);
-		
+		mycontext.drawImage(myimage, 0, 0, myimage.width, myimage.height);
 		//이미지 글씨 박스화
-		let fieldlist = json.images[0].fields;
-		for(let i in fieldlist){
-			if(fieldlist[i].lineBreak == true){
-				$('#output2').append(fieldlist[i].inferText + "<br>");	
-			}else{
-				$('#output2').append(fieldlist[i].inferText + "&nbsp;");	
+		let fieldslist = json.images[0].fields;//배열 단어갯수만큼
+		for(let i in fieldslist){
+			if(fieldslist[i].lineBreak == true){
+			$("#output2").append(fieldslist[i].inferText + "<br>");
 			}
-			var x= fieldlist[i].boundingPoly.vertices[0].x;
-			var y= fieldlist[i].boundingPoly.vertices[0].y;
-			var width = fieldlist[i].boundingPoly.vertices[1].x - x;
-			var height = fieldlist[i].boundingPoly.vertices[2].y - y;
+			else{
+				$("#output2").append(fieldslist[i].inferText + "&nbsp;");
+			}
 			
-			mycontext.strokeStyle = "blue";	
+			var x = fieldslist[i].boundingPoly.vertices[0].x;//단어시작x좌표
+			var y = fieldslist[i].boundingPoly.vertices[0].y;//단어시작y좌표	
+			var width = fieldslist[i].boundingPoly.vertices[1].x - x;//단어가로크기
+			var height = fieldslist[i].boundingPoly.vertices[2].y - y;//단어세로크기
+			
+			mycontext.strokeStyle="blue";
 			mycontext.lineWidth = 2;
 			mycontext.strokeRect(x,y,width,height);
-		}
+		}//for end
 		
-		
-	}  
-});
-</script>
+	}//myimage.onload 
 
+});//ready
+</script>
 </head>
 <body>
-<%-- <h3>${ocrresult }</h3> --%>
 <div id="output" style="border:2px solid orange"></div>
 <div id="output2" style="border:2px solid green"></div>
-<canvas id="ocrcanvas" style ="border:2px solid silver" width ="500" height="500"></canvas>
+<canvas id="ocrcanvas" style="border:2px solid silver" width="500" height="500"></canvas>
 </body>
 </html>

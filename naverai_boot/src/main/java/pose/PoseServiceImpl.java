@@ -1,6 +1,12 @@
 package pose;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -10,10 +16,8 @@ import org.springframework.stereotype.Service;
 import com.example.ai.MyNaverInform;
 import com.example.ai.NaverService;
 
-// Ncloud Pose Estimation API 예제
-
 @Service("poseservice")
-public class PoseServiceImpl implements NaverService{
+public class PoseServiceImpl implements NaverService {
 
     public String test(String image) {
     	StringBuffer response = null;
@@ -67,7 +71,7 @@ public class PoseServiceImpl implements NaverService{
             }
             String inputLine;
             if(br != null) {
-                response = new StringBuffer();
+               response = new StringBuffer();
                 while ((inputLine = br.readLine()) != null) {
                     response.append(inputLine);
                 }

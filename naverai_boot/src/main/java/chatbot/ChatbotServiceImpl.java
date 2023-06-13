@@ -19,28 +19,29 @@ import com.example.ai.MyNaverInform;
 import com.example.ai.NaverService;
 
 //(질문, 답변) ("", 웰컴메시지)
+
 @Service("chatbotservice")
-public class ChatbotServiceImpl implements NaverService {
+public class ChatbotServiceImpl implements NaverService{
 	public String test(String request) {
-		return test(request,"send");
+		return test(request, "send");
 	}
 	
-	public String test(String request,String event) {
-//		String result = main(request,MyNaverInform.chatbot_apiurl,MyNaverInform.chatbot_secret);
-//		System.out.println("=== 챗봇 결과 === ");
-//		System.out.println(result);
+	//질문을 챗봇에게 전달 - json 답변
+	public String test(String request, String event) {
+		//String result = main(request, MyNaverInform.chatbot_apiURL, MyNaverInform.chatbot_sercet);
+		//System.out.println(" ===챗봇 결과=== ");
+		//System.out.println(result);
 
         String chatbotMessage = "";
 
         try {
-            //String apiURL = MyNaverInform.chatbot_apiurl;
-
-            URL url = new URL(MyNaverInform.chatbot_apiurl);
-
-            String message = getReqMessage(request,event); // json 형태 질문
+          	String apiURL = MyNaverInform.chatbot_apiURL;
+        	String secretKey = MyNaverInform.chatbot_sercet;
+            URL url = new URL(apiURL);
+            String message = getReqMessage(request, event);//json형태 질문.(send/open)
             System.out.println("##" + message);
 
-            String encodeBase64String = makeSignature(message, MyNaverInform.chatbot_secret);
+            String encodeBase64String = makeSignature(message, secretKey);//암호화
 
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setRequestMethod("POST");
@@ -79,7 +80,7 @@ public class ChatbotServiceImpl implements NaverService {
 
         return chatbotMessage;
     }
-  	//json 형태로 요청값 전달
+	//질문 시크릿키 암호화
     public static String makeSignature(String message, String secretKey) {
 
         String encodeBase64String = "";
@@ -92,7 +93,7 @@ public class ChatbotServiceImpl implements NaverService {
             mac.init(signingKey);
 
             byte[] rawHmac = mac.doFinal(message.getBytes("UTF-8"));
-            encodeBase64String = Base64.getEncoder().encodeToString(rawHmac); // 자바api 암호화
+            encodeBase64String = Base64.getEncoder().encodeToString(rawHmac);//안드로이드 -> java.util api 암호화
 
             return encodeBase64String;
 
@@ -103,8 +104,9 @@ public class ChatbotServiceImpl implements NaverService {
         return encodeBase64String;
 
     }
-    //질문 시크릿키 암호화
-    public static String getReqMessage(String voiceMessage,String event) {
+
+    //json 형태로 요청값 전달
+    public static String getReqMessage(String voiceMessage, String event) {
 
         String requestBody = "";
 
@@ -136,7 +138,7 @@ public class ChatbotServiceImpl implements NaverService {
             bubbles_array.put(bubbles_obj);
 
             obj.put("bubbles", bubbles_array);
-            obj.put("event", event);
+            obj.put("event", event);//답변/웰컴메시지 결정
 
             requestBody = obj.toString();
 
@@ -148,4 +150,8 @@ public class ChatbotServiceImpl implements NaverService {
 
     }
 }
+
+
+
+
 

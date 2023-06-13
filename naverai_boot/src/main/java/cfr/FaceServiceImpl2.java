@@ -17,17 +17,18 @@ import com.example.ai.MyNaverInform;
 import com.example.ai.NaverService;
 
 @Service("faceservice2")
-public class FaceServiceImpl2 implements NaverService {
+public class FaceServiceImpl2 implements NaverService{
 
 	@Override
 	public String test(String image) {
-		StringBuffer reqStr = new StringBuffer();
+		StringBuffer response = null;
+        StringBuffer reqStr = new StringBuffer();
         String clientId = MyNaverInform.clientID;//애플리케이션 클라이언트 아이디값";
         String clientSecret = MyNaverInform.secret;//애플리케이션 클라이언트 시크릿값";
-        StringBuffer response = null;
+
         try {
             String paramName = "image"; // 파라미터명은 image로 지정
-            String imgFile = MyNaverInform.path + image; //2mb이하크기(ncp사이트제한)
+            String imgFile = MyNaverInform.path + image;//2mb이하크기(ncp사이트제한)
             File uploadFile = new File(imgFile);
             String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/face"; // 얼굴 감지
             URL url = new URL(apiURL);
@@ -76,7 +77,7 @@ public class FaceServiceImpl2 implements NaverService {
                     response.append(inputLine);
                 }
                 br.close();
-                System.out.println(response.toString());
+                System.out.println(response.toString());//json { {}, []}
             } else {
                 System.out.println("error !!!");
             }
@@ -86,4 +87,5 @@ public class FaceServiceImpl2 implements NaverService {
         return response.toString();
 	}
 
+	
 }
